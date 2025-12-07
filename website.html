@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>Game Artist Portfolio - Yu Donghyeon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Pretendard (선택) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+
+  <!-- Lenis 부드러운 스크롤 라이브러리 추가 -->
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.5/bundled/lenis.min.js"></script>
+
+  <style>
+    :root {
+      --bg-main: #050505;
+      --text-main: #ffffff;
+      --text-sub: #b3b3b3;
+      --accent: #f2a94f;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-bg-hover: rgba(255, 255, 255, 0.09);
+      --border-subtle: rgba(255, 255, 255, 0.12);
+      --radius-lg: 18px;
+      --radius-md: 14px;
+      --shadow-soft: 0 24px 80px rgba(0, 0, 0, 0.9);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html, body {
+      height: 100%;
+      /* Lenis가 대신 처리하므로 기본 smooth는 꺼둠 */
+      scroll-behavior: auto;
+    }
+
+    body {
+      background-color: #070707; /* 전체 기본 톤 */
+      color: var(--text-main);
+      overflow-x: hidden;
+      position: relative; /* ::before 레이어를 위해 필요 */
+    }
+
+    /* 고정된 그라디언트 배경 레이어 */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(
+          circle at 20% 30%,
+          rgba(255, 255, 255, 0.05) 0%, 
+          rgba(255, 255, 255, 0.015) 25%, 
+          rgba(0, 0, 0, 0) 60%
+        ),
+        radial-gradient(
+          circle at 80% 70%,
+          rgba(255, 255, 255, 0.03) 0%,
+          rgba(0, 0, 0, 0) 70%
+        );
+    }
+
+    .page {
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ------- NAV ------- */
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.9), rgba(0,0,0,0));
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+    }
+
+    .nav-logo {
+      font-size: 13px;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--text-sub);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+      font-size: 14px;
+    }
+
+    nav a {
+      color: var(--text-sub);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--text-main);
+    }
+
+    /* ------- LAYOUT ------- */
+
+    main {
+      flex: 1;
+    }
+
+    .section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 96px 32px 80px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      margin-bottom: 32px;
+    }
+
+    /* ------- HERO ------- */
+
+    .hero {
+      text-align: center;
+      justify-content: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--text-sub);
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-size: 52px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .hero-sub {
+      max-width: 560px;
+      margin: 0 auto 40px;
+      color: var(--text-sub);
+      font-size: 14px;
+    }
+
+    .scroll-mouse {
+      width: 26px;
+      height: 40px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .scroll-mouse-dot {
+      width: 4px;
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.9);
+      position: absolute;
+      left: 50%;
+      top: 20%;
+      transform: translateX(-50%);
+      animation: scrollDot 1.7s ease-in-out infinite;
+    }
+
+    @keyframes scrollDot {
+      0%   { opacity: 0; transform: translate(-50%, 0); }
+      20%  { opacity: 1; }
+      80%  { opacity: 1; transform: translate(-50%, 140%); }
+      100% { opacity: 0; transform: translate(-50%, 160%); }
+    }
+
+    /* ------- ABOUT / PROFILE ------- */
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      gap: 56px;
+      align-items: center;
+    }
+
+    .about-left-title {
+      font-size: 32px;
+      margin-bottom: 5px;
+    }
+
+    .about-text {
+      font-size: 14px;
+      color: var(--text-sub);
+      max-width: 600px;
+    }
+
+    .about-tagline {
+      margin-top: 2px;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 6px 14px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .profile-card {
+      background: radial-gradient(circle at 50% 0%, rgba(255,255,255,0.06) 0, transparent 55%);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px 24px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .profile-photo-wrap {
+      width: 120px;
+      height: 120px;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 0 auto 16px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .profile-photo {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .profile-name {
+      text-align: center;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .profile-role {
+      text-align: center;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .profile-info-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 6px;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    .profile-label {
+      color: var(--text-sub);
+    }
+
+    .profile-value {
+      color: var(--text-main);
+      font-weight: 500;
+    }
+
+    /* ------- WORKS ------- */
+
+    #works.section {
+      align-items: flex-start;
+    }
+
+    .works-header {
+      margin-bottom: 26px;
+    }
+
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.03);
+      transition: transform 0.22s ease-out, box-shadow 0.22s ease-out, border-color 0.22s ease-out, background 0.22s ease-out;
+      min-width: 0;
+    }
+
+    /* 카드 전체를 링크로 사용 */
+    .project-card-link {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 26px 60px rgba(0, 0, 0, 0.9);
+      background: var(--card-bg-hover);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .project-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-body {
+      padding: 16px 18px 18px;
+    }
+
+    .project-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .project-meta {
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    /* 링크 상태 모두 흰색 유지 (카드 링크용) */
+    .project-card-link,
+    .project-card-link:visited,
+    .project-card-link:hover,
+    .project-card-link:active {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    /* ------- FOOTER ------- */
+
+    footer {
+      padding: 32px;
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-sub);
+    }
+
+    /* 푸터 안의 다른 링크도 항상 흰색 유지하고 싶다면 추가 */
+    footer a,
+    footer a:visited,
+    footer a:hover,
+    footer a:active {
+      color: #ffffff;
+      text-decoration: none;
+    }
+
+    /* ------- RESPONSIVE ------- */
+
+    @media (max-width: 1200px) {
+      .works-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .about-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .works-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        padding: 0 18px;
+      }
+
+      .hero-title {
+        font-size: 36px;
+        letter-spacing: 0.18em;
+      }
+
+      .section-title {
+        font-size: 28px;
+      }
+
+      .container {
+        padding: 88px 18px 60px;
+      }
+
+      .works-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-inner">
+      <div class="nav-logo">GameArt Portfolio</div>
+      <nav>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#works">Works</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="section hero" id="hero">
+      <div class="container">
+        <div class="hero-eyebrow">3D ENVIRONMENT &amp; PROPS</div>
+        <h1 class="hero-title">PORTPOLIO</h1>
+        <p class="hero-sub">
+          공간과 오브젝트를 통해 이야기를 전하는 게임 배경과 프롭을 제작합니다.<br />
+	  깔끔한 토폴로지와 설득력 있는 머티리얼, 효율적인 게임 레디 자산 제작에 집중합니다.
+        </p>
+        <div class="scroll-mouse">
+          <div class="scroll-mouse-dot"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="section" id="about">
+      <div class="container">
+        <div class="about-grid">
+          <div>
+            <div class="about-left-title">About Me</div>
+            <p class="about-tagline">
+              디테일한 공간 연출을 통해 게임의 몰입감을 높이는 배경 아티스트 유동현입니다.
+            </p>
+            <p class="about-text">
+              3D 게임 배경과 소품을 중심으로 학업과 개인 작업을 이어가고 있습니다.
+              플레이어의 동선과 시선을 고려한 공간 구성, 조명과 분위기 설계를 연구하며
+              실무에 가까운 퀄리티의 씬을 만드는 것을 목표로 합니다.
+            </p>
+
+            <div class="pill-row">
+              <div class="pill">대한민국 · 안산시</div>
+              <div class="pill">디지털아트 전공</div>
+              <div class="pill">Environment · Props · Level Art</div>
+            </div>
+          </div>
+
+          <aside class="profile-card">
+            <div class="profile-photo-wrap">
+              <!-- profile.png 로 교체 -->
+              <img src="profile.png" alt="프로필 사진" class="profile-photo" />
+            </div>
+            <div class="profile-name">유동현</div>
+            <div class="profile-role">3D ENVIRONMENT &amp; PROPS ARTIST</div>
+
+            <div class="profile-info-row">
+              <span class="profile-label">출신 / 거주</span>
+              <span class="profile-value">대한민국 / 안산시</span>
+            </div>
+            <div class="profile-info-row">
+              <span class="profile-label">전공</span>
+              <span class="profile-value">디지털아트</span>
+            </div>
+            <div class="profile-info-row">
+              <span class="profile-label">관심 분야</span>
+              <span class="profile-value">Environment, Props, Level Art</span>
+            </div>
+            <div class="profile-info-row">
+              <span class="profile-label">툴</span>
+              <span class="profile-value">3ds Max, Substance 3D, Unreal Engine, ZBrush</span>
+            </div>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- WORKS -->
+    <section class="section" id="works">
+      <div class="container">
+        <div class="works-header">
+          <h2 class="section-title">Works</h2>
+        </div>
+
+        <div class="works-grid">
+
+          <!-- 1 Souvenir -->
+          <a class="project-card-link" href="https://www.artstation.com/artwork/oJ5wXL" target="_blank">
+            <article class="project-card">
+              <img src="souvenir.png" alt="Souvenir" class="project-thumb" />
+              <div class="project-body">
+                <div class="project-title">Souvenir</div>
+                <div class="project-meta">Environment · Unreal Engine</div>
+              </div>
+            </article>
+          </a>
+
+          <!-- 2 Haeso -->
+          <a class="project-card-link" href="https://www.artstation.com/artwork/L4Pdxw" target="_blank">
+            <article class="project-card">
+              <img src="haeso.png" alt="Haeso" class="project-thumb" />
+              <div class="project-body">
+                <div class="project-title">Haeso</div>
+                <div class="project-meta">Environment · Realtime</div>
+              </div>
+            </article>
+          </a>
+
+          <!-- 3 Viking Tomahawk -->
+          <a class="project-card-link" href="https://www.artstation.com/artwork/a0kYAR" target="_blank">
+            <article class="project-card">
+              <img src="viking_tomahawk.png" alt="Viking Tomahawk" class="project-thumb" />
+              <div class="project-body">
+                <div class="project-title">Viking Tomahawk</div>
+                <div class="project-meta">Props</div>
+              </div>
+            </article>
+          </a>
+
+          <!-- 4 Viking Shield -->
+          <a class="project-card-link" href="https://www.artstation.com/artwork/L4N3Aw" target="_blank">
+            <article class="project-card">
+              <img src="viking_shield.png" alt="Viking Shield" class="project-thumb" />
+              <div class="project-body">
+                <div class="project-title">Viking Shield</div>
+                <div class="project-meta">Props</div>
+              </div>
+            </article>
+          </a>
+
+          <!-- 5 Scope -->
+          <a class="project-card-link" href="https://링크5-여기에" target="_blank">
+            <article class="project-card">
+              <img src="scope.png" alt="Scope" class="project-thumb" />
+              <div class="project-body">
+                <div class="project-title">Scope</div>
+                <div class="project-meta">Props</div>
+              </div>
+            </article>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © <span id="year"></span> Yu Donghyeon · Game Environment &amp; Props Artist
+  </footer>
+
+</div>
+
+  <!-- JS: 연도 + Lenis 부드러운 스크롤 -->
+  <script>
+    // 연도 자동 (엘리먼트가 있을 때만)
+    const yearEl = document.getElementById("year");
+    if (yearEl) {
+      yearEl.textContent = new Date().getFullYear();
+    }
+
+    // Lenis 부드러운 스크롤 초기화
+    const lenis = new Lenis({
+      duration: 2.5,       // 감속 시간 살짝 줄이기
+      smoothWheel: true,   // 마우스 휠만 부드럽게
+      smoothTouch: false   // 터치는 기본 스크롤
+      // lerp 옵션은 기본값 사용
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+  </script>
+</body>
+</html>
