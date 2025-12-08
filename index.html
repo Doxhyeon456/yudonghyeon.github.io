@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
-  <title>Game Artist Portfolio - Yu Donghyeon</title>
+  <title>Game Artist Portfolio - Yu DongHyeon</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Pretendard (선택) -->
@@ -275,7 +275,7 @@
       font-size: 12px;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      color: var(--accent);
+      color: var(--text-sub);
       margin-bottom: 18px;
     }
 
@@ -388,6 +388,18 @@
       text-decoration: none;
     }
 
+    /* ------- SCROLL REVEAL ------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     /* ------- RESPONSIVE ------- */
 
     @media (max-width: 1200px) {
@@ -452,15 +464,12 @@
     <!-- HERO -->
     <section class="section hero" id="hero">
       <div class="container">
-        <div class="hero-eyebrow">3D ENVIRONMENT &amp; PROPS</div>
-        <h1 class="hero-title">PORTPOLIO</h1>
-        <p class="hero-sub">
+        <div class="hero-eyebrow reveal">3D ENVIRONMENT &amp; PROPS</div>
+        <h1 class="hero-title reveal">GAME ARTIST</h1>
+        <p class="hero-sub reveal">
           공간과 오브젝트를 통해 이야기를 전하는 게임 배경과 프롭을 제작합니다.<br />
-	  깔끔한 토폴로지와 설득력 있는 머티리얼, 효율적인 게임 레디 자산 제작에 집중합니다.
+          깔끔한 토폴로지와 설득력 있는 머티리얼, 효율적인 게임 레디 자산 제작에 집중합니다.
         </p>
-        <div class="scroll-mouse">
-          <div class="scroll-mouse-dot"></div>
-        </div>
       </div>
     </section>
 
@@ -468,7 +477,7 @@
     <section class="section" id="about">
       <div class="container">
         <div class="about-grid">
-          <div>
+          <div class="reveal">
             <div class="about-left-title">About Me</div>
             <p class="about-tagline">
               디테일한 공간 연출을 통해 게임의 몰입감을 높이는 배경 아티스트 유동현입니다.
@@ -486,7 +495,7 @@
             </div>
           </div>
 
-          <aside class="profile-card">
+          <aside class="profile-card reveal">
             <div class="profile-photo-wrap">
               <!-- profile.png 로 교체 -->
               <img src="profile.png" alt="프로필 사진" class="profile-photo" />
@@ -518,7 +527,7 @@
     <!-- WORKS -->
     <section class="section" id="works">
       <div class="container">
-        <div class="works-header">
+        <div class="works-header reveal">
           <h2 class="section-title">Works</h2>
         </div>
 
@@ -526,7 +535,7 @@
 
           <!-- 1 Souvenir -->
           <a class="project-card-link" href="https://www.artstation.com/artwork/oJ5wXL" target="_blank">
-            <article class="project-card">
+            <article class="project-card reveal">
               <img src="souvenir.png" alt="Souvenir" class="project-thumb" />
               <div class="project-body">
                 <div class="project-title">Souvenir</div>
@@ -537,7 +546,7 @@
 
           <!-- 2 Haeso -->
           <a class="project-card-link" href="https://www.artstation.com/artwork/L4Pdxw" target="_blank">
-            <article class="project-card">
+            <article class="project-card reveal">
               <img src="haeso.png" alt="Haeso" class="project-thumb" />
               <div class="project-body">
                 <div class="project-title">Haeso</div>
@@ -548,7 +557,7 @@
 
           <!-- 3 Viking Tomahawk -->
           <a class="project-card-link" href="https://www.artstation.com/artwork/a0kYAR" target="_blank">
-            <article class="project-card">
+            <article class="project-card reveal">
               <img src="viking_tomahawk.png" alt="Viking Tomahawk" class="project-thumb" />
               <div class="project-body">
                 <div class="project-title">Viking Tomahawk</div>
@@ -559,7 +568,7 @@
 
           <!-- 4 Viking Shield -->
           <a class="project-card-link" href="https://www.artstation.com/artwork/L4N3Aw" target="_blank">
-            <article class="project-card">
+            <article class="project-card reveal">
               <img src="viking_shield.png" alt="Viking Shield" class="project-thumb" />
               <div class="project-body">
                 <div class="project-title">Viking Shield</div>
@@ -570,7 +579,7 @@
 
           <!-- 5 Scope -->
           <a class="project-card-link" href="https://링크5-여기에" target="_blank">
-            <article class="project-card">
+            <article class="project-card reveal">
               <img src="scope.png" alt="Scope" class="project-thumb" />
               <div class="project-body">
                 <div class="project-title">Scope</div>
@@ -591,8 +600,29 @@
 
 </div>
 
-  <!-- JS: 연도 + Lenis 부드러운 스크롤 -->
+  <!-- JS: 연도 + Lenis 부드러운 스크롤 + Scroll Reveal -->
   <script>
+    // --- 스크롤 리빌 애니메이션 ---
+    const revealEls = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+          } else {
+            // 한 번만 나타나고 유지하고 싶으면 아래 줄을 지워도 됨
+            entry.target.classList.remove("visible");
+          }
+        });
+      },
+      {
+        threshold: 0.2, // 요소의 20% 정도 보이면 트리거
+      }
+    );
+
+    revealEls.forEach((el) => observer.observe(el));
+
     // 연도 자동 (엘리먼트가 있을 때만)
     const yearEl = document.getElementById("year");
     if (yearEl) {
@@ -601,10 +631,9 @@
 
     // Lenis 부드러운 스크롤 초기화
     const lenis = new Lenis({
-      duration: 2.5,       // 감속 시간 살짝 줄이기
-      smoothWheel: true,   // 마우스 휠만 부드럽게
-      smoothTouch: false   // 터치는 기본 스크롤
-      // lerp 옵션은 기본값 사용
+      duration: 2.5,
+      smoothWheel: true,
+      smoothTouch: false
     });
 
     function raf(time) {
