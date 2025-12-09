@@ -247,6 +247,59 @@
       border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
+.profile-divider {
+  border: none;
+  height: 1px;
+  background: rgba(255,255,255,0.08);
+  margin: 14px 0;
+}
+
+.profile-section-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: 0.05em;
+  color: #ffffff;
+}
+
+.profile-info-list {
+  font-size: 12px;
+  color: var(--text-sub);
+  line-height: 1.45;
+  margin-bottom: 12px;
+}
+
+.profile-info-item {
+  margin-bottom: 4px;
+}
+
+.skill-item {
+  margin-bottom: 12px;
+}
+
+.skill-label {
+  font-size: 12px;
+  color: var(--text-sub);
+  margin-bottom: 4px;
+  display: inline-block;
+}
+
+.skill-bar {
+  width: 100%;
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.skill-fill {
+  height: 100%;
+  background: rgba(255,255,255,0.8);
+  border-radius: 999px;
+  transition: width 0.6s ease-out;
+}
+
+
     .profile-photo-wrap {
       width: 120px;
       height: 120px;
@@ -467,8 +520,8 @@
         <div class="hero-eyebrow reveal">3D ENVIRONMENT &amp; PROPS</div>
         <h1 class="hero-title reveal">GAME ARTIST</h1>
         <p class="hero-sub reveal">
-          공간과 오브젝트를 통해 이야기를 전하는 게임 배경과 프롭을 제작합니다.<br />
-          깔끔한 토폴로지와 설득력 있는 머티리얼, 효율적인 게임 레디 자산 제작에 집중합니다.
+          게임 속 공간과 소품을 디자인하며, 플레이어가 몰입할 수 있는 환경을 만듭니다.<br/>
+	현실감 있는 분위기와 디테일을 통해 장면이 지닌 이야기를 더 선명하게 표현하고자 합니다.
         </p>
       </div>
     </section>
@@ -483,43 +536,80 @@
               디테일한 공간 연출을 통해 게임의 몰입감을 높이는 배경 아티스트 유동현입니다.
             </p>
             <p class="about-text">
-              3D 게임 배경과 소품을 중심으로 학업과 개인 작업을 이어가고 있습니다.
-              플레이어의 동선과 시선을 고려한 공간 구성, 조명과 분위기 설계를 연구하며
-              실무에 가까운 퀄리티의 씬을 만드는 것을 목표로 합니다.
+		게임 속 공간을 더 설득력 있게 보여주는 방법을 탐구하며, 3D 배경과 소품을 제작하고 있습니다.<br>
+		플레이어의 경험을 최우선으로 두고<br> 공간의 흐름·조명·분위기를 조화롭게 구성하는 작업에 집중하고 있습니다.
             </p>
 
             <div class="pill-row">
-              <div class="pill">대한민국 · 안산시</div>
-              <div class="pill">디지털아트 전공</div>
-              <div class="pill">Environment · Props · Level Art</div>
             </div>
           </div>
+<aside class="profile-card reveal">
+  <div class="profile-photo-wrap">
+    <img src="profile.png" alt="프로필 사진" class="profile-photo" />
+  </div>
 
-          <aside class="profile-card reveal">
-            <div class="profile-photo-wrap">
-              <!-- profile.png 로 교체 -->
-              <img src="profile.png" alt="프로필 사진" class="profile-photo" />
-            </div>
-            <div class="profile-name">유동현</div>
-            <div class="profile-role">3D ENVIRONMENT &amp; PROPS ARTIST</div>
+  <div class="profile-name">유동현</div>
+  <div class="profile-role">환경 / 배경 아티스트</div>
 
-            <div class="profile-info-row">
-              <span class="profile-label">출신 / 거주</span>
-              <span class="profile-value">대한민국 / 안산시</span>
-            </div>
-            <div class="profile-info-row">
-              <span class="profile-label">전공</span>
-              <span class="profile-value">디지털아트</span>
-            </div>
-            <div class="profile-info-row">
-              <span class="profile-label">관심 분야</span>
-              <span class="profile-value">Environment, Props, Level Art</span>
-            </div>
-            <div class="profile-info-row">
-              <span class="profile-label">툴</span>
-              <span class="profile-value">3ds Max, Substance 3D, Unreal Engine, ZBrush</span>
-            </div>
-          </aside>
+  <!-- Birth -->
+  <div class="profile-info-row">
+    <span class="profile-label">생년월일</span>
+    <span class="profile-value">2002.12.08</span>
+  </div>
+
+  <hr class="profile-divider">
+
+  <!-- EDUCATION -->
+  <div class="profile-section-title">EDUCATION</div>
+  <div class="profile-info-list">
+    <div class="profile-info-item">2018.03 ~ 2021.02 이리고등학교 졸업</div>
+    <div class="profile-info-item">2025.06 ~ 2025.08 펄어비스 하반기 인턴십</div>
+    <div class="profile-info-item">2021.03 ~ 서울예술대학교 디지털아트 전공 재학</div>
+  </div>
+
+  <hr class="profile-divider">
+
+  <!-- SKILL -->
+  <div class="profile-section-title">SKILL</div>
+
+  <div class="skill-item">
+    <span class="skill-label">Unreal Engine</span>
+    <div class="skill-bar">
+      <div class="skill-fill" style="width: 85%;"></div>
+    </div>
+  </div>
+
+  <div class="skill-item">
+    <span class="skill-label">Substance Painter</span>
+    <div class="skill-bar">
+      <div class="skill-fill" style="width: 80%;"></div>
+    </div>
+  </div>
+
+  <div class="skill-item">
+    <span class="skill-label">3ds Max</span>
+    <div class="skill-bar">
+      <div class="skill-fill" style="width: 75%;"></div>
+    </div>
+  </div>
+
+  <div class="skill-item">
+    <span class="skill-label">Substance Designer</span>
+    <div class="skill-bar">
+      <div class="skill-fill" style="width: 70%;"></div>
+    </div>
+  </div>
+
+  <div class="skill-item">
+    <span class="skill-label">ZBrush</span>
+    <div class="skill-bar">
+      <div class="skill-fill" style="width: 60%;"></div>
+    </div>
+  </div>
+
+</aside>
+
+
         </div>
       </div>
     </section>
